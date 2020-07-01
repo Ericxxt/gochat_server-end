@@ -1,0 +1,59 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+# mybatis配置
+
+mybatis:
+  # sql语句打印在控制台上
+#   configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ericxxt.pojo
+# 通用mapper配置
+mapper:
+  mappers: com.ericxxt.utils.MyMapper
+  not-empty: false
+  identity: MYSQL
+### 分页设置
+#pagehelper:
+#  helper-dialect: mysql
+#  support-methods-arguments: true
+
+## 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tangtang1w
+    url: jdbc:mysql://localhost:3306/goChat-dev?characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true
+    # hikari配置
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+#      等待连接池分配的最大时长，超过这个时长还没有可用的链接则发生sqlexception，默认30秒
+      connection-timeout: 30000
+#      最小连接数
+      minimum-idle: 5
+#      最大连接数
+      maximum-pool-size: 15
+#      自动提交
+      auto-commit: true
+#      一个链接idle状态的最大时长，超过则被释放(retired) 默认十分钟
+      idle-timeout: 600000
+#      连接池名字
+      pool-name: DatabookHikariCP
+#      一个链接的生命时长，超过而且没被使用则被释放，默认30分钟
+      max-lifetime: 28740000
+      connection-test-query: SELECT 1
+# ===================================================================
+# 分布式文件系统FDFS配置
+# ===================================================================
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image:             #缩略图生成参数
+    width: 80
+    height: 80
+  tracker-list:            #TrackerList参数,支持多个
+    - 10.27.90.38:22122
+    - 10.27.90.38:22122
