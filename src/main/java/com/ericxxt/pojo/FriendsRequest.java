@@ -33,8 +33,8 @@ public class FriendsRequest implements Serializable {
     /**
      * 发送时间
      */
-    @Column(name = "request_data_time")
-    private Date requestDataTime;
+    @Column(name = "request_date_time")
+    private Date requestDateTime;
 
     private static final long serialVersionUID = 1L;
 }

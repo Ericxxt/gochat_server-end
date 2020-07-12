@@ -7,6 +7,7 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import org.springframework.stereotype.Component;
 
 public class WSServerInitializer extends ChannelInitializer<SocketChannel> {
@@ -27,6 +28,13 @@ public class WSServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast(new HttpObjectAggregator(1024*26));
 
         //===========以上是对于http协议的支持
+
+        //===========以下是支持心跳===================
+        // 如果超过一分钟没有向服务器发送心跳，那么关闭连接
+        // 检测，更新此时event状态
+        pipeline.addLast(new IdleStateHandler(40,50,60));
+        // 自定义的读写空闲状态检测 如果是all idle 那么断开
+        pipeline.addLast(new HeartBeatHandler());
 
 
         //websocket 服务器处理的协议，用于指定给客户端链接访问的路由： /ws

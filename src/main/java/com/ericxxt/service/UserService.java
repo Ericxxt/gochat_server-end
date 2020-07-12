@@ -1,7 +1,11 @@
 package com.ericxxt.service;
 
+import com.ericxxt.netty.ChatData;
+import com.ericxxt.pojo.ChatMsg;
 import com.ericxxt.pojo.FriendsRequest;
 import com.ericxxt.pojo.Users;
+import com.ericxxt.pojo.vo.FriendRequestVo;
+import com.ericxxt.pojo.vo.MyFriendsVo;
 
 import java.util.List;
 
@@ -43,23 +47,68 @@ public interface UserService {
      * @return
      */
 
-//    Integer preSearchFriends(String myUserId, String username);
+    Integer preSearchFriends(String myUserId, String username);
 
     /**
      * 根据用户名查询用户信息
      * @param username
      * @return
      */
-//    Users queryUserByUsername(String username);
+    Users queryUserByUsername(String username);
 
     /**
      * 发送添加好友请求
      * @param myUserId
      * @param username
      */
-//    void sendAddFriendRequest(String myUserId,String username);
+    void sendAddFriendRequest(String myUserId,String username);
 
 
+    /**
+     * 查询想添加我的人的信息
+     * @param acceptId
+     * @return
+     */
+    List<FriendRequestVo> queryFriendRequestList(String acceptId);
 //    Users queryUsersInfo(String userId);
+
+    /**
+     * 删除好友请求表,忽略好友添加请求
+     * @param senderId 发送请求的id
+     * @param acceptUserId 接收请求的id
+     */
+    void deleteFriendRequest(String senderId, String acceptUserId);
+
+    /**
+     * 通过好友添加请求
+     * @param senderId 发送请求的id
+     * @param acceptUserId 接收请求的id
+     */
+    void passFriendRequest(String senderId, String acceptUserId);
+
+    /**
+     * 查询我的所有好友
+     * @param userId
+     */
+    List<MyFriendsVo> queryMyFriends(String userId);
+
+    /**
+     * 保存消息到数据库中,返回msgId
+     * @param chatData
+     * @return
+     */
+    String saveMsg(ChatData chatData);
+
+    /**
+     * 批量签收消息状态
+     * @param msgIdList
+     */
+    void updateSignMsg(List<String> msgIdList);
+
+    /**
+     * 查询未读消息
+     * @param acceptUserId
+     */
+    List<ChatMsg> queryUnReadMsg(String acceptUserId);
 
 }

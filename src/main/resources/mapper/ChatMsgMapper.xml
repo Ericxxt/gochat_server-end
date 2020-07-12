@@ -10,6 +10,6 @@
     <result column="accept_user_id" property="acceptUserId" jdbcType="VARCHAR" />
     <result column="msg" property="msg" jdbcType="VARCHAR" />
     <result column="sign_flag" property="signFlag" jdbcType="INTEGER" />
-    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>
